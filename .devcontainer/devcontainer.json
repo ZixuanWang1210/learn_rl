@@ -1,28 +1,35 @@
 {
     // replace them as you need
     "name": "learn",
-    "image": "wzx1210/pusher:v1.0",
-    "features": {
-    },
-
-    "runArgs": ["--init","--gpus=all"],
-    "forwardPorts": [6080, 5901],
-    "portsAttributes": {
-        "6080": {
-            "label": "desktop"
-        },
-        "5901": {
-            "label": "VNC"
-        }
-    },
-    "overrideCommand": false,
+    "image": "registry.cn-shenzhen.aliyuncs.com/pengjunkun/ray:pusher-v4",
+    "features": {},
+    "runArgs": [
+        "--init",
+        "--gpus=all",
+        "--network=host",
+        "--shm-size=10.24gb"
+    ],
+    // "forwardPorts": [
+    //     6080,
+    //     5901
+    // ],
+    // "portsAttributes": {
+    //     "6080": {
+    //         "label": "desktop"
+    //     },
+    //     "5901": {
+    //         "label": "VNC"
+    //     }
+    // },
+    // "overrideCommand": false,
     "customizations": {
         "vscode": {
             "extensions": [
                 "ms-python.python"
             ]
         }
-    },
-    // "postStartCommand": ["/usr/local/share/desktop-init.sh"]
+    }
+    // "postStartCommand": [
+    //     "ray start --address='10.10.114.13:6379'"
+    // ]
 }
-

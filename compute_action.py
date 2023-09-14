@@ -20,7 +20,7 @@ algo = (
     .build()
 )
 
-algo.restore("/root/ray_results/PPO_Pusher-v4_2023-09-13_10-31-255xyev9i3/checkpoint_000003")
+algo.restore("/workspaces/save/best_model_1")
 
 episode_reward = 0
 terminated = truncated = False

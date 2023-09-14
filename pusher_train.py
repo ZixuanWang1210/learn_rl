@@ -1,21 +1,6 @@
 from ray.rllib.algorithms.ppo import PPOConfig
 from ray.tune.logger import pretty_print
 
-
-# config = {
-#     "env": "Pusher-v4",
-#     "framework": "torch",  # 使用PyTorch
-#     "num_gpus": 1,
-#     "num_workers": 10,
-#     "lr": 0.001,  # 学习率
-#     "gamma": 0.999,        # 削减因子
-#     "train_batch_size": 2000,  # 训练批次大小
-#     "vf_loss_coeff": 0.5,  # 值函数损失系数
-#     "entropy_coeff": 0.1,  # 熵正则化系数
-#     "num_sgd_iter": 3,  # SGD迭代次数
-#     # 其他可调参数...
-# }
-
 algo = (
     PPOConfig()
     .rollouts(num_rollout_workers=4)
