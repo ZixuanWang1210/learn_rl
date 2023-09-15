@@ -43,6 +43,8 @@ python pusher_train.py
 ```
 训练模型保存在：/root/ray_results/PPO_Pusher-v4_2023-09-14_15-55-21n36c2dz6/checkpoint_000006
 
+具体地址可以在终端日志中查看
+
 **可视化模型推理**
 
 请修改代码中第23行ckp的地址
