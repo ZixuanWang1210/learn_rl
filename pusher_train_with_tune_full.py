@@ -4,7 +4,7 @@ import os
 import json
 # import shutil
 
-ray.init(ignore_reinit_error=True)  # 初始化Ray
+ray.init(ignore_reinit_error=True) 
 
 save_dir = "/workspaces/save"
 if not os.path.exists(save_dir):
@@ -13,21 +13,24 @@ if not os.path.exists(save_dir):
 
 config = {
     "env": "Pusher-v4",
-    "framework": "torch",  
-    "num_workers": 10,
-    "lr": tune.grid_search([0.01, 0.001]),  # Reduced to 2 values
-    "gamma": tune.grid_search([0.99, 0.999]),  # Reduced to 2 values
-    "train_batch_size": tune.grid_search([1000, 5000]),  # Reduced to 2 values
-    "vf_loss_coeff": tune.grid_search([0.1, 1.0]),  # Reduced to 2 values
-    "entropy_coeff": tune.grid_search([0.01, 0.1]),  # Reduced to 2 values
-    "clip_param": 0.2,  # Fixed to a commonly used value
-    "sgd_minibatch_size": tune.grid_search([128, 512]),  # Reduced to 2 values
-    "lambda": 0.95,  # Fixed to a commonly used value
+    "framework": "torch",
+    "num_workers": 20,
+    "lr": tune.grid_search([0.01, 0.001]),
+    "gamma": tune.grid_search([0.99, 0.999]),
+    "train_batch_size": tune.grid_search([1000, 5000]),
+    "vf_loss_coeff": tune.grid_search([0.1, 1.0]),
+    "entropy_coeff": tune.grid_search([0.01, 0.1]),
+    "clip_param": 0.2,
+    "sgd_minibatch_size": tune.grid_search([128, 512]),
+    "lambda": 0.95,
     "model": {
-        "fcnet_hiddens": tune.grid_search([[256, 256], [64, 64]]),  # Reduced to 2 values
-        "fcnet_activation": "relu",  # Fixed to one activation
+        "fcnet_hiddens": tune.grid_search([[256, 256], [64, 64]]),
+        "fcnet_activation": "relu",
     },
-    "num_sgd_iter": tune.grid_search([3, 5]),  # Reduced to 2 values
+    "num_sgd_iter": tune.grid_search([3, 5]),
+    "clip_rewards": tune.choice([True, False]),  # Whether to clip rewards in the environment
+    "observation_filter": tune.choice(["NoFilter", "MeanStdFilter"]),  # Observation filter method
+    "grad_clip": tune.grid_search([0.1, 0.5]),  # Gradient clipping parameter
 }
 
 analysis = tune.run(

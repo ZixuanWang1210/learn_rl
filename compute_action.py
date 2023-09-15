@@ -11,7 +11,7 @@ except Exception:
 from ray.rllib.algorithms.ppo import PPOConfig
 
 env_name = "Pusher-v4"
-env = gym.make(env_name,render_mode="human")
+env = gym.make(env_name, render_mode="human")
 algo = (
     PPOConfig()
     .rollouts(num_rollout_workers=1)
@@ -20,7 +20,7 @@ algo = (
     .build()
 )
 
-algo.restore("/workspaces/save/best_model_1")
+algo.restore("/root/ray_results/PPO/PPO_Pusher-v4_b7209_00000_0_2023-09-15_01-10-52/checkpoint_000001")
 
 episode_reward = 0
 terminated = truncated = False

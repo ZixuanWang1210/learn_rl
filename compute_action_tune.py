@@ -1,8 +1,3 @@
-import ray
-from ray import tune
-from ray.rllib.algorithms.ppo import PPO as Trainable
-import json
-
 try:
     import gymnasium as gym
 
@@ -12,11 +7,14 @@ except Exception:
 
     gymnasium = False
 
-# 初始化 Ray
+import ray
+from ray import tune
+from ray.rllib.algorithms.ppo import PPO as Trainable
+import json
+
 ray.init(ignore_reinit_error=True)
 
-# 指定用于推理的模型检查点
-CHECKPOINT_PATH = "/workspaces/save/best_model_1"
+CHECKPOINT_PATH = "/workspaces/save/best_model_8"
 
 with open("/workspaces/save/best_model_1_config.json", "r") as f:
     config = json.load(f)
@@ -24,7 +22,7 @@ with open("/workspaces/save/best_model_1_config.json", "r") as f:
 best_model = Trainable(config=config)
 best_model.load_checkpoint(CHECKPOINT_PATH)
 
-env = gym.make("Pusher-v4")
+env = gym.make("Pusher-v4",render_mode="human")
 state = env.reset()
 
 episode_reward = 0

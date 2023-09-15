@@ -1,27 +1,32 @@
 {
-    // replace them as you need
-    "name": "learn",
-    "image": "registry.cn-shenzhen.aliyuncs.com/pengjunkun/ray:pusher-v4",
-    "features": {},
+    "name": "Pusher-v4",
+    "image": "registry.cn-shenzhen.aliyuncs.com/pengjunkun/ray:pusher-v4_v1.3",
+    // "features": {
+    //     "desktop-lite": {
+    //         "password": "vscode",
+    //         "webPort": "6080",
+    //         "vncPort": "5901"
+    //     }
+    // },
     "runArgs": [
         "--init",
         "--gpus=all",
         "--network=host",
         "--shm-size=10.24gb"
     ],
-    // "forwardPorts": [
-    //     6080,
-    //     5901
-    // ],
-    // "portsAttributes": {
-    //     "6080": {
-    //         "label": "desktop"
-    //     },
-    //     "5901": {
-    //         "label": "VNC"
-    //     }
-    // },
-    // "overrideCommand": false,
+    "forwardPorts": [
+        6080,
+        5901
+    ],
+    "portsAttributes": {
+        "6080": {
+            "label": "desktop"
+        },
+        "5901": {
+            "label": "VNC"
+        }
+    },
+    "overrideCommand": false,
     "customizations": {
         "vscode": {
             "extensions": [

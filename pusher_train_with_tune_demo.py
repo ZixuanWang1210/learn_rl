@@ -4,7 +4,7 @@ import os
 import json
 # import shutil
 
-ray.init(ignore_reinit_error=True)  # 初始化Ray
+ray.init(ignore_reinit_error=True)  
 
 save_dir = "/workspaces/save"
 if not os.path.exists(save_dir):
@@ -15,8 +15,8 @@ config = {
     "env": "Pusher-v4",
     "framework": "torch",
     "num_workers": 4,
-    # "lr": tune.grid_search([0.01, 0.001]),
-    # "gamma": tune.grid_search([0.99, 0.999]),
+    "lr": tune.grid_search([0.01, 0.001]),
+    "gamma": tune.grid_search([0.99, 0.999]),
     "train_batch_size": 2000,
     "vf_loss_coeff": 0.5,
     "entropy_coeff": tune.grid_search([0.01, 0.1]),
@@ -30,12 +30,13 @@ analysis = tune.run(
     num_samples=3,
     fail_fast=False,
     max_failures=0,
+    # 失败的实验不会导致主程序异常
     raise_on_failed_trial=False
 )
 
 trials = analysis.trials
 
-N = 10
+N = 6
 
 # 过滤掉未完成的试验
 completed_trials = [trial for trial in trials if trial.status == "TERMINATED"]
