@@ -1,4 +1,3 @@
-# Note: `gymnasium` (not `gym`) will be **the** API supported by RLlib from Ray 2.3 on.
 try:
     import gymnasium as gym
 
@@ -13,7 +12,7 @@ import ray
 from ray import tune
 
 
-# Your dictionary configuration
+# train
 config = {
     "env": "Pusher-v4",
     "framework": "torch",
@@ -36,15 +35,13 @@ config = {
     "grad_clip": 0.5,
 }
 
-# Initialize Ray and RLlib
 ray.init()
 
-# Train an agent using PPO and save the checkpoint
 analysis = tune.run("PPO", config=config, stop={"training_iteration": 1}, checkpoint_at_end=True)
 checkpoints = analysis.get_trial_checkpoints_paths(trial=analysis.get_best_trial("episode_reward_mean"))
 checkpoint_path = checkpoints[0][0]
 
-
+# run
 env_name = "Pusher-v4"
 env = gym.make(env_name, render_mode="human")
 config = PPOConfig()
@@ -67,10 +64,10 @@ config = PPOConfig()
     )
 )
 
-config.fcnet_hiddens = [256, 256]  # default
-config.fcnet_activation = "relu"  # default
-config.clip_rewards = True  # default
-config.observation_filter = "MeanStdFilter"  # default
+config.fcnet_hiddens = [256, 256]  
+config.fcnet_activation = "relu"
+config.clip_rewards = True
+config.observation_filter = "MeanStdFilter"
 
 algo=config.build()
 
