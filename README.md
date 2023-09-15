@@ -76,6 +76,8 @@ python compute_action_tune.py
 ```
 一步action的具体值将在终端打印
 
+可视化可以使用空格暂停后，使用→逐帧渲染
+![Alt text](doc/image.png)
 
 **训练监看**
 
@@ -109,7 +111,7 @@ ray start --address='10.10.114.13:6379'
 ```python
 ssh -L 8265:localhost:8265 xxx@10.10.114.13
 ```
-
+![Alt text](doc/dashboard.png)
 **开始训练**
 
 #### 1. 使用train()方法
@@ -128,6 +130,8 @@ python pusher_train.py
 python compute_action.py
 ```
 每一步action的具体值将在终端打印
+
+可视化可以使用空格暂停后，使用→逐帧渲染
 
 #### 2. 使用tune
 ```python
