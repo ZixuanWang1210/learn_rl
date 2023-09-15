@@ -32,10 +32,9 @@ ray start --head
 ssh -L 8265:localhost:8265 xxx@10.10.114.14
 ```
 
-
 **开始训练**
 
-#### 使用train()方法
+#### 1. 使用train()方法
 
 使用algo.train()，训练一组参数并保存ckp
 
@@ -52,7 +51,7 @@ python compute_action.py
 ```
 每一步action的具体值将在终端打印
 
-#### 使用tune
+#### 2. 使用tune
 ```python
 pusher_train_with_tune_demo.py
 ```
@@ -61,6 +60,7 @@ pusher_train_with_tune_demo.py
 代码中默认保存episode_reward_mean的值前6大的模型，可以修改 38 行变量N的值修改
 
 相关文件保存在 `/workspaces/save`内，目录结构如下
+
 ```python
 best_model_1              best_model_2              best_model_3              best_model_4              best_model_5              best_model_6
 best_model_1_config.json  best_model_2_config.json  best_model_3_config.json  best_model_4_config.json  best_model_5_config.json  best_model_6_config.json
@@ -103,7 +103,59 @@ ray start --address='10.10.114.13:6379'
 ```
 **查看dashboard**
 
-在本地主机执行
+在本地主机执行，并访问 localhost:8265
 ```python
 ssh -L 8265:localhost:8265 xxx@10.10.114.13
 ```
+
+**开始训练**
+
+#### 1. 使用train()方法
+
+使用algo.train()，训练一组参数并保存ckp
+
+```python
+python pusher_train.py
+```
+训练模型保存在liukai14：/root/ray_results/PPO_Pusher-v4_2023-09-14_15-55-21n36c2dz6/checkpoint_000006
+
+**可视化模型推理**
+
+请修改代码中第23行ckp的地址
+```python
+python compute_action.py
+```
+每一步action的具体值将在终端打印
+
+#### 2. 使用tune
+```python
+pusher_train_with_tune_demo.py
+```
+使用tune不仅需要保存ckp还需要保存每一次实验所使用的算法config
+
+代码中默认保存episode_reward_mean的值前6大的模型，可以修改 38 行变量N的值修改
+
+相关文件保存在 `/workspaces/save`内，目录结构如下
+
+```python
+best_model_1              best_model_2              best_model_3              best_model_4              best_model_5              best_model_6
+best_model_1_config.json  best_model_2_config.json  best_model_3_config.json  best_model_4_config.json  best_model_5_config.json  best_model_6_config.json
+```
+**可视化模型推理**
+
+修改17和19行模型的地址
+
+```python
+python compute_action_tune.py
+```
+一步action的具体值将在终端打印
+
+
+**训练监看**
+
+```python
+tensorboard --logdir=/root/ray_results/PPO
+```
+/root/ray_results下形如PPO_Pusher-v4_2023-09-14_12-37-28ft7zbkvh的文件夹，是algo.train()的日志文件
+
+/root/ray_results/PPO下形如PPO_Pusher-v4_fbfec_00108_108_clip_param=0.1000,entropy_coeff=0.0050,gamma=0.9900,lambda=0.9000,lr=0.0001,fcnet_activation=tanh,fc_2023-09-14_06-37-12的文件夹，是使用tune训练的日志文件
